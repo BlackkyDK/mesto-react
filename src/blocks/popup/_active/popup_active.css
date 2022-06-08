@@ -2,5 +2,4 @@
     display: flex;
     visibility: visible;
     opacity: 1;
-    transition: opacity .3s, visibility 0s, linear .3s;
 }
