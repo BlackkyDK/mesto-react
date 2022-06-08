@@ -17,7 +17,7 @@ function Main({ onEditProfile, onEditAvatar, onAddPlace, onCardClick }) {
         setCards(cardInfo);
       }
     );
-  },);
+  }, []);
 
   return (
     <main className="main">
@@ -55,10 +55,8 @@ function Main({ onEditProfile, onEditAvatar, onAddPlace, onCardClick }) {
       </section>
       <section className="cards">
         {cards.map((card) => (
-          <Card key={card.id} card={card} onCardClick={onCardClick} />
+          <Card key={card._id} card={card} onCardClick={onCardClick} />
         ))}
-
-        <article className="card"></article>
       </section>
     </main>
   );

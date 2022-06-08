@@ -7,27 +7,24 @@ import ImagePopup from "./ImagePopup";
 
 function App() {
   const [isEditProfileOpen, setEditProfileOpen] = React.useState(false);
+  const [isEditAvatarOpen, setEditAvatarOpen] = React.useState(false);
+  const [isAddPlaceOpen, setAddPlaceOpen] = React.useState(false);
+  const [isImageOpen, setImageOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState({});
+
   function handleEditProfileClick() {
     setEditProfileOpen(true);
   }
-
-  const [isEditAvatarOpen, setEditAvatarOpen] = React.useState(false);
   function handleEditAvatarClick() {
     setEditAvatarOpen(true);
   }
-
-  const [isAddPlaceOpen, setAddPlaceOpen] = React.useState(false);
   function handleAddPlaceClick() {
     setAddPlaceOpen(true);
   }
-
-  const [isImageOpen, setImageOpen] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState({});
   function handleCardClick(card) {
     setImageOpen(true);
     setSelectedCard(card);
   }
-
   function closePopups() {
     setEditProfileOpen(false);
     setEditAvatarOpen(false);
