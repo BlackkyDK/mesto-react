@@ -1,16 +1,16 @@
-import React from "react";
+import {useContext, useState, useEffect} from "react";
 import PopupWithForm from "./PopupWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
-  const currentUser = React.useContext(CurrentUserContext);
-  const [userName, setUserName] = React.useState("");
-  const [userProfession, setUserProfession] = React.useState("");
+  const currentUser = useContext(CurrentUserContext);
+  const [userName, setUserName] = useState("");
+  const [userProfession, setUserProfession] = useState("");
 
-  React.useEffect(() => {
+  useEffect(() => {
     setUserName(currentUser.name);
     setUserProfession(currentUser.about);
-  }, [currentUser]);
+  }, [currentUser, isOpen]);
 
   function handleChangeName(evt) {
     setUserName(evt.target.value);
@@ -46,7 +46,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
         maxLength="40"
         type="text"
         placeholder="Имя"
-        value={userName}
+        value={userName || ''}
         onChange={handleChangeName}
       />
       <span
@@ -62,7 +62,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
         maxLength="200"
         type="text"
         placeholder="Профессиональная деятельность"
-        value={userProfession}
+        value={userProfession || ''}
         onChange={handleChangeProfession}
       />
       <span

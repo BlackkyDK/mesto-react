@@ -1,9 +1,9 @@
-import React from "react";
+import {useEffect, useState} from "react";
 import PopupWithForm from "./PopupWithForm";
 
 function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
-  const [name, setName] = React.useState("");
-  const [link, setLink] = React.useState("");
+  const [name, setName] = useState("");
+  const [link, setLink] = useState("");
 
   function handleSubmit(evt) {
     evt.preventDefault();
@@ -18,7 +18,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
     setLink(evt.target.value);
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isOpen) {
       setName("");
       setLink("");
@@ -44,7 +44,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
         type="text"
         placeholder="Название"
         onChange={handleChangeName}
-        value={name}
+        value={name || ''}
       />
       <span
         className="error-message error-message_visible"
@@ -58,7 +58,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
         type="url"
         placeholder="Ссылка на картинку"
         onChange={handleChangeLink}
-        value={link}
+        value={link || ''}
       />
       <span
         className="error-message error-message_visible"
