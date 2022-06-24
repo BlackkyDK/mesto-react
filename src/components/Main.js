@@ -1,23 +1,17 @@
 import React from "react";
 import Card from "./Card";
-import api from "../utils/Api";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-function Main({ onEditProfile, onEditAvatar, onAddPlace, onCardClick }) {
-  const [userName, setUserName] = React.useState("");
-  const [userProfession, setUserProfession] = React.useState("");
-  const [userAvatar, setUserAvatar] = React.useState("");
-  const [cards, setCards] = React.useState([]);
-
-  React.useEffect(() => {
-    Promise.all([api.getProfile(), api.getInitialCards()]).then(
-      ([userInfo, cardInfo]) => {
-        setUserName(userInfo.name);
-        setUserProfession(userInfo.about);
-        setUserAvatar(userInfo.avatar);
-        setCards(cardInfo);
-      }
-    );
-  }, []);
+function Main({
+  onEditProfile,
+  onEditAvatar,
+  onAddPlace,
+  onCardClick,
+  onCardLike,
+  onCardDelete,
+  cards,
+}) {
+  const currentUser = React.useContext(CurrentUserContext);
 
   return (
     <main className="main">
@@ -28,15 +22,19 @@ function Main({ onEditProfile, onEditAvatar, onAddPlace, onCardClick }) {
           aria-label="редактировать аватар"
           onClick={onEditAvatar}
         >
-          <img className="profile__avatar" src={userAvatar} alt="Аватар" />
+          <img
+            className="profile__avatar"
+            src={`${currentUser.avatar}`}
+            alt="Аватар"
+          />
         </button>
         <div className="profile__biography">
           <div className="profile__info">
             <h1 className="profile__name" id="profile__name">
-              {userName}
+              {currentUser.name}
             </h1>
             <p className="profile__profession" id="profile__profession">
-              {userProfession}
+              {currentUser.about}
             </p>
           </div>
           <button
@@ -55,7 +53,13 @@ function Main({ onEditProfile, onEditAvatar, onAddPlace, onCardClick }) {
       </section>
       <section className="cards">
         {cards.map((card) => (
-          <Card key={card._id} card={card} onCardClick={onCardClick} />
+          <Card
+            key={card._id}
+            card={card}
+            onCardClick={onCardClick}
+            onCardLike={onCardLike}
+            onCardDelete={onCardDelete}
+          />
         ))}
       </section>
     </main>
